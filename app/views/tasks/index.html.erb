@@ -1,10 +1,16 @@
 <h1>My Tasks</h1>
-<% @tasks.each do |task| %>
-<div>
-  <%= task.completed %>
-  <%= task.title %>
-  <%= link_to "Details", task_path(task) %>
-  </div>
-  <hr>
-<% end %>
+<div class="card">
+  <ul class="list-group list-group-flush">
+  <% @tasks.each do |task| %>
+  <li>
+      <%= (task.completed ? "<i class='fa-solid fa-check'></i>" : "<i class='fa-solid fa-xmark'></i>").html_safe %>
+      <%= link_to task.title, task_path(task) %>
+      <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe,
+      task_path(task),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+    %>
+    </li>
+  <% end %>
+  </ul>
+</div>
 <a href="tasks/new">Create a new task</a>
